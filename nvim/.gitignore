@@ -1,0 +1,22 @@
+# Original
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+# Cache & generated files
+.luarc.json
+plugin/
+
+# OS files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Spell files (optional)
+spell/

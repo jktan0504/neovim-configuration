@@ -1,0 +1,163 @@
+# Lazygit Configuration
+# Location: ~/.config/lazygit/config.yml
+
+gui:
+  # Theme - neon colors to match your nvim theme
+  theme:
+    activeBorderColor:
+      - "#ff6ac1"  # Pink
+      - bold
+    inactiveBorderColor:
+      - "#5c6370"
+    optionsTextColor:
+      - "#00ffff"  # Cyan
+    selectedLineBgColor:
+      - "#191326"  # Dark purple
+    selectedRangeBgColor:
+      - "#191326"
+    cherryPickedCommitBgColor:
+      - "#5af78e"
+    cherryPickedCommitFgColor:
+      - "#191326"
+    unstagedChangesColor:
+      - "#ff6e6e"  # Red
+    defaultFgColor:
+      - "#f8f8f2"
+    searchingActiveBorderColor:
+      - "#ffff00"  # Yellow
+
+  # UI settings
+  mouseEvents: true
+  scrollHeight: 5
+  scrollPastBottom: true
+  sidePanelWidth: 0.3333
+  expandFocusedSidePanel: true
+  mainPanelSplitMode: "flexible"
+  language: "en"
+  showRandomTip: false
+  showCommandLog: true
+  showBottomLine: true
+  showPanelJumps: true
+  nerdFontsVersion: "3"
+
+  # Commit length warning
+  commitLength:
+    show: true
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  commit:
+    signOff: false
+  merging:
+    manualCommit: false
+    args: ""
+  log:
+    order: "topo-order"
+    showGraph: "always"
+    showWholeGraph: false
+  skipHookPrefix: WIP
+  autoFetch: true
+  autoRefresh: true
+  branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
+  allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium"
+
+os:
+  editPreset: "nvim"
+
+refresher:
+  refreshInterval: 10
+  fetchInterval: 60
+
+update:
+  method: "prompt"
+  days: 14
+
+# Custom commands
+customCommands:
+  # Commitizen
+  - key: "C"
+    command: "git cz"
+    description: "Commit with Commitizen"
+    context: "files"
+    loadingText: "Opening commitizen..."
+    subprocess: true
+
+  # Push force with lease (safer)
+  - key: "P"
+    command: "git push --force-with-lease"
+    description: "Push force with lease"
+    context: "localBranches"
+    loadingText: "Force pushing..."
+
+  # Create feature branch
+  - key: "F"
+    command: "git checkout -b feature/{{index .PromptResponses 0}}"
+    description: "Create feature branch"
+    context: "localBranches"
+    prompts:
+      - type: "input"
+        title: "Feature name:"
+
+  # Create bugfix branch
+  - key: "B"
+    command: "git checkout -b bugfix/{{index .PromptResponses 0}}"
+    description: "Create bugfix branch"
+    context: "localBranches"
+    prompts:
+      - type: "input"
+        title: "Bugfix name:"
+
+  # Stash with message
+  - key: "S"
+    command: "git stash push -m '{{index .PromptResponses 0}}'"
+    description: "Stash with message"
+    context: "files"
+    prompts:
+      - type: "input"
+        title: "Stash message:"
+
+  # Rebase interactive
+  - key: "R"
+    command: "git rebase -i {{.SelectedLocalCommit.Sha}}^"
+    description: "Rebase interactive from here"
+    context: "commits"
+    loadingText: "Rebasing..."
+
+  # Open in GitHub
+  - key: "O"
+    command: "gh browse"
+    description: "Open repo in GitHub"
+    context: "global"
+    loadingText: "Opening GitHub..."
+
+# Keybindings
+keybinding:
+  universal:
+    quit: "q"
+    quit-alt1: "<c-c>"
+    return: "<esc>"
+    togglePanel: "<tab>"
+    prevItem: "<up>"
+    nextItem: "<down>"
+    prevPage: ","
+    nextPage: "."
+    scrollLeft: "H"
+    scrollRight: "L"
+    gotoTop: "<"
+    gotoBottom: ">"
+    prevBlock: "<left>"
+    nextBlock: "<right>"
+    nextMatch: "n"
+    prevMatch: "N"
+    startSearch: "/"
+    optionMenu: "x"
+    edit: "e"
+    openFile: "o"
+    scrollUpMain: "<pgup>"
+    scrollDownMain: "<pgdown>"
+    refresh: "R"
+    createRebaseOptionsMenu: "m"
+    pushFiles: "P"
+    pullFiles: "p"

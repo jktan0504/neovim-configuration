@@ -76,12 +76,21 @@ vim.api.nvim_create_user_command("ToggleAutoformat", function()
 end, {})
 
 -- Terminal keymaps (VSCode-like bottom terminal)
--- Use Ctrl+` or Ctrl+j to toggle terminal at bottom
+-- Use Ctrl+` or Ctrl+/ to toggle terminal at bottom
 keymap.set("n", "<C-`>", function()
 	vim.cmd("ToggleTerm direction=horizontal")
 end, { desc = "Toggle bottom terminal" })
 
 keymap.set("t", "<C-`>", function()
+	vim.cmd("ToggleTerm")
+end, { desc = "Toggle terminal from terminal mode" })
+
+-- Ctrl+/ to toggle terminal (like Warp/VSCode)
+keymap.set("n", "<C-/>", function()
+	vim.cmd("ToggleTerm direction=horizontal size=15")
+end, { desc = "Toggle bottom terminal" })
+
+keymap.set("t", "<C-/>", function()
 	vim.cmd("ToggleTerm")
 end, { desc = "Toggle terminal from terminal mode" })
 
@@ -122,3 +131,24 @@ end, { desc = "Synthwave theme" })
 keymap.set("n", "<leader>T4", function()
 	require("config.themes").apply_theme("matrix")
 end, { desc = "Matrix theme" })
+
+-- Copy diagnostic error message to clipboard
+keymap.set("n", "<leader>cy", function()
+	local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
+	if #diagnostics > 0 then
+		local messages = {}
+		for _, d in ipairs(diagnostics) do
+			table.insert(messages, d.message)
+		end
+		local full_message = table.concat(messages, "\n")
+		vim.fn.setreg("+", full_message)
+		vim.notify("Diagnostic copied to clipboard!", vim.log.levels.INFO)
+	else
+		vim.notify("No diagnostic on this line", vim.log.levels.WARN)
+	end
+end, { desc = "Copy diagnostic to clipboard" })
+
+-- Show full diagnostic in a floating window (focusable)
+keymap.set("n", "<leader>ce", function()
+	vim.diagnostic.open_float({ scope = "line", border = "rounded" })
+end, { desc = "Show full diagnostic" })

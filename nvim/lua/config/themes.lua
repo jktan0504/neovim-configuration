@@ -38,18 +38,20 @@ M.themes = {
 		explorer_input = "#21182e",
 		explorer_border = "#6272a4",
 		colors = {
-			keyword = "#ff2d95", -- HOT pink (brighter)
+			keyword = "#ff2d95", -- HOT pink
 			func = "#39ff14", -- Electric neon green
 			string = "#ffff00", -- Pure neon yellow
-			type = "#00ffff", -- Pure cyan
+			type = "#00ffff", -- Pure cyan (class names)
 			constant = "#bf5fff", -- Vivid purple
-			variable = "#ffffff",
+			variable = "#e0e0e0", -- Light gray (not pure white)
 			param = "#ff9500", -- Vivid orange
 			red = "#ff3333", -- Bright red
 			comment = "#5c6370", -- Muted gray
-			property = "#00ffff",
+			property = "#7dd3fc", -- Light cyan
 			tag = "#ff2d95",
 			tag_attr = "#39ff14",
+			class_name = "#00ffff", -- Cyan for class names
+			extends = "#ff2d95", -- Pink for extends keyword
 		},
 	},
 
@@ -63,15 +65,17 @@ M.themes = {
 			keyword = "#00e5ff", -- Electric cyan
 			func = "#00ff87", -- Bright aqua green
 			string = "#69ff94", -- Bright mint
-			type = "#40c4ff", -- Vivid sky blue
+			type = "#40c4ff", -- Vivid sky blue (class names)
 			constant = "#82b1ff", -- Bright blue
-			variable = "#ffffff",
+			variable = "#e0e0e0", -- Light gray
 			param = "#ffab40", -- Bright orange
 			red = "#ff5252", -- Bright red
 			comment = "#546e7a", -- Muted blue-gray
-			property = "#40c4ff",
+			property = "#80deea", -- Light cyan
 			tag = "#69ff94",
 			tag_attr = "#40c4ff",
+			class_name = "#40c4ff", -- Sky blue for class names
+			extends = "#00e5ff", -- Cyan for extends
 		},
 	},
 
@@ -85,15 +89,17 @@ M.themes = {
 			keyword = "#ff00ff", -- Pure magenta
 			func = "#00ffff", -- Pure cyan
 			string = "#ffff00", -- Pure yellow
-			type = "#ff1493", -- Deep pink
+			type = "#ff1493", -- Deep pink (class names)
 			constant = "#ee82ee", -- Violet
-			variable = "#ffffff",
+			variable = "#e0e0e0", -- Light gray
 			param = "#ff8c00", -- Dark orange
 			red = "#ff0000", -- Pure red
 			comment = "#6a5a7a", -- Muted purple-gray
-			property = "#ff1493",
+			property = "#da70d6", -- Orchid
 			tag = "#00ffff",
 			tag_attr = "#ff00ff",
+			class_name = "#ff1493", -- Deep pink for class names
+			extends = "#ff00ff", -- Magenta for extends
 		},
 	},
 
@@ -107,15 +113,17 @@ M.themes = {
 			keyword = "#00ff00", -- Pure green
 			func = "#39ff14", -- Neon green
 			string = "#7cfc00", -- Lawn green
-			type = "#00ff7f", -- Spring green
+			type = "#00ff7f", -- Spring green (class names)
 			constant = "#32cd32", -- Lime green
-			variable = "#90ee90", -- Light green
+			variable = "#b0ffb0", -- Very light green
 			param = "#adff2f", -- Green yellow
 			red = "#ff4500", -- Orange red
 			comment = "#3d5a3d", -- Muted dark green
-			property = "#00ff7f",
+			property = "#98fb98", -- Pale green
 			tag = "#39ff14",
 			tag_attr = "#7cfc00",
+			class_name = "#00ff7f", -- Spring green for class names
+			extends = "#00ff00", -- Pure green for extends
 		},
 	},
 }
@@ -203,6 +211,48 @@ function M.apply_theme(theme_name)
 	vim.api.nvim_set_hl(0, "@punctuation.delimiter", { fg = c.keyword, bold = true })
 	vim.api.nvim_set_hl(0, "@operator", { fg = c.keyword, bold = true })
 	vim.api.nvim_set_hl(0, "@comment", { fg = c.comment, italic = true })
+
+	-- PHP/Class-specific highlights
+	vim.api.nvim_set_hl(0, "@lsp.type.class", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.interface", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.enum", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.struct", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.type", { fg = c.type, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg = c.param, italic = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.property", { fg = c.property, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.function", { fg = c.func, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.method", { fg = c.func, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.variable", { fg = c.variable })
+	vim.api.nvim_set_hl(0, "@lsp.type.namespace", { fg = c.type, bold = true })
+
+	-- Class definition and inheritance
+	vim.api.nvim_set_hl(0, "@type.definition", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@keyword.modifier", { fg = c.extends, bold = true })
+	vim.api.nvim_set_hl(0, "@keyword.type", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "@storageclass", { fg = c.keyword, bold = true })
+
+	-- PHP specific
+	vim.api.nvim_set_hl(0, "@lsp.type.class.php", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@type.php", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@constructor.php", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@function.php", { fg = c.func, bold = true })
+	vim.api.nvim_set_hl(0, "@method.php", { fg = c.func, bold = true })
+	vim.api.nvim_set_hl(0, "@parameter.php", { fg = c.param, italic = true })
+	vim.api.nvim_set_hl(0, "@variable.parameter.php", { fg = c.param, italic = true })
+
+	-- TypeScript/JavaScript specific
+	vim.api.nvim_set_hl(0, "@lsp.type.class.typescript", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.class.javascript", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@lsp.type.interface.typescript", { fg = c.class_name, bold = true, italic = true })
+
+	-- Go specific
+	vim.api.nvim_set_hl(0, "@type.go", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@function.go", { fg = c.func, bold = true })
+
+	-- Python specific
+	vim.api.nvim_set_hl(0, "@type.python", { fg = c.class_name, bold = true })
+	vim.api.nvim_set_hl(0, "@function.python", { fg = c.func, bold = true })
+	vim.api.nvim_set_hl(0, "@parameter.python", { fg = c.param, italic = true })
 
 	vim.notify("Theme switched to: " .. theme.name, vim.log.levels.INFO)
 end

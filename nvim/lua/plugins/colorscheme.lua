@@ -112,6 +112,29 @@ return {
 					vim.api.nvim_set_hl(0, "@comment", { fg = "#5c6370", italic = true }) -- Muted gray
 					vim.api.nvim_set_hl(0, "@label", { fg = "#caa9fa", bold = true })
 
+					-- LSP Semantic Tokens (for class names, parameters, etc.)
+					vim.api.nvim_set_hl(0, "@lsp.type.class", { fg = "#9aedfe", bold = true }) -- Cyan for class names
+					vim.api.nvim_set_hl(0, "@lsp.type.interface", { fg = "#9aedfe", bold = true })
+					vim.api.nvim_set_hl(0, "@lsp.type.enum", { fg = "#9aedfe", bold = true })
+					vim.api.nvim_set_hl(0, "@lsp.type.struct", { fg = "#9aedfe", bold = true })
+					vim.api.nvim_set_hl(0, "@lsp.type.type", { fg = "#9aedfe", bold = true })
+					vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg = "#ffca85", italic = true }) -- Orange params
+					vim.api.nvim_set_hl(0, "@lsp.type.property", { fg = "#7dd3fc", bold = true })
+					vim.api.nvim_set_hl(0, "@lsp.type.function", { fg = "#5af78e", bold = true })
+					vim.api.nvim_set_hl(0, "@lsp.type.method", { fg = "#5af78e", bold = true })
+					vim.api.nvim_set_hl(0, "@lsp.type.variable", { fg = "#e0e0e0" })
+					vim.api.nvim_set_hl(0, "@lsp.type.namespace", { fg = "#9aedfe", bold = true })
+					vim.api.nvim_set_hl(0, "@keyword.modifier", { fg = "#ff6ac1", bold = true }) -- Pink for extends/implements
+
+					-- PHP specific highlights
+					vim.api.nvim_set_hl(0, "@lsp.type.class.php", { fg = "#9aedfe", bold = true })
+					vim.api.nvim_set_hl(0, "@type.php", { fg = "#9aedfe", bold = true })
+					vim.api.nvim_set_hl(0, "@constructor.php", { fg = "#9aedfe", bold = true })
+					vim.api.nvim_set_hl(0, "@function.php", { fg = "#5af78e", bold = true })
+					vim.api.nvim_set_hl(0, "@method.php", { fg = "#5af78e", bold = true })
+					vim.api.nvim_set_hl(0, "@parameter.php", { fg = "#ffca85", italic = true })
+					vim.api.nvim_set_hl(0, "@variable.parameter.php", { fg = "#ffca85", italic = true })
+
 					-- Markdown headings
 					vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { bg = colors.linkarzu_color18, fg = colors.linkarzu_color26, bold = true })
 					vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { bg = colors.linkarzu_color19, fg = colors.linkarzu_color26, bold = true })

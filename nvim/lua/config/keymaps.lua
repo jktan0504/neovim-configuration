@@ -75,39 +75,7 @@ vim.api.nvim_create_user_command("ToggleAutoformat", function()
 	require("craftzdog.lsp").toggleAutoformat()
 end, {})
 
--- Terminal keymaps (VSCode-like bottom terminal)
--- Use Ctrl+` or Ctrl+/ to toggle terminal at bottom
-keymap.set("n", "<C-`>", function()
-	vim.cmd("ToggleTerm direction=horizontal")
-end, { desc = "Toggle bottom terminal" })
-
-keymap.set("t", "<C-`>", function()
-	vim.cmd("ToggleTerm")
-end, { desc = "Toggle terminal from terminal mode" })
-
--- Ctrl+/ to toggle terminal (like Warp/VSCode)
-keymap.set("n", "<C-/>", function()
-	vim.cmd("ToggleTerm direction=horizontal size=15")
-end, { desc = "Toggle bottom terminal" })
-
-keymap.set("t", "<C-/>", function()
-	vim.cmd("ToggleTerm")
-end, { desc = "Toggle terminal from terminal mode" })
-
--- Alternative keybind if Ctrl+` doesn't work
-keymap.set("n", "<leader>tt", function()
-	vim.cmd("ToggleTerm direction=horizontal size=15")
-end, { desc = "Toggle bottom terminal" })
-
-keymap.set("n", "<leader>tf", function()
-	vim.cmd("ToggleTerm direction=float")
-end, { desc = "Toggle floating terminal" })
-
-keymap.set("n", "<leader>tv", function()
-	vim.cmd("ToggleTerm direction=vertical size=80")
-end, { desc = "Toggle vertical terminal" })
-
--- Exit terminal mode easily
+-- Terminal: Exit terminal mode easily
 keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 keymap.set("t", "<C-w>", "<C-\\><C-n><C-w>", { desc = "Window navigation from terminal" })
 
@@ -129,6 +97,10 @@ keymap.set("n", "<leader>T3", function()
 end, { desc = "Synthwave theme" })
 
 keymap.set("n", "<leader>T4", function()
+	require("config.themes").apply_theme("neon_blast")
+end, { desc = "Neon Blast theme" })
+
+keymap.set("n", "<leader>T5", function()
 	require("config.themes").apply_theme("matrix")
 end, { desc = "Matrix theme" })
 

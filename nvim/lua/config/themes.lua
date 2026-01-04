@@ -103,7 +103,34 @@ M.themes = {
 		},
 	},
 
-	-- Theme 4: Matrix (Green focused) - PURE GREEN HACKER
+	-- Theme 4: Neon Blast (Ocean Neon with high contrast)
+	neon_blast = {
+		name = "Neon Blast",
+		explorer_bg = "#0a1628", -- Same as Cyber Ocean
+		explorer_input = "#0f1f35",
+		explorer_border = "#00ffff",
+		colors = {
+			keyword = "#38bdf8", -- SKY BLUE for keywords (use, public, function, extends, return)
+			func = "#39ff14", -- NEON GREEN for functions
+			string = "#ffff00", -- NEON YELLOW for strings
+			type = "#ff2d95", -- HOT PINK for class names (ContractController, Controller)
+			constant = "#ff9500", -- NEON ORANGE for constants/numbers
+			variable = "#e0e0e0", -- WHITE/LIGHT GRAY for variables ($item, $data)
+			param = "#00fff2", -- ELECTRIC CYAN for parameters
+			red = "#ff5555", -- BRIGHT RED for errors
+			comment = "#6a7a8a", -- Muted gray
+			property = "#7dffdc", -- AQUAMARINE for properties (->name, ->id)
+			tag = "#ff2d95",
+			tag_attr = "#39ff14",
+			class_name = "#ff2d95", -- HOT PINK for class names
+			extends = "#38bdf8", -- Sky blue for extends keyword
+			-- Blade specific
+			blade_directive = "#00e5ff", -- Cyan for @if, @foreach etc
+			blade_echo = "#00ff7f", -- Green for {{ }}
+		},
+	},
+
+	-- Theme 5: Matrix (Green focused) - PURE GREEN HACKER
 	matrix = {
 		name = "Matrix",
 		explorer_bg = "#0a1510", -- Very dark green
@@ -166,7 +193,9 @@ function M.apply_theme(theme_name)
 	vim.api.nvim_set_hl(0, "Constant", { fg = c.constant, bold = true })
 	vim.api.nvim_set_hl(0, "Identifier", { fg = c.variable, bold = true })
 	vim.api.nvim_set_hl(0, "Statement", { fg = c.keyword, bold = true })
-	vim.api.nvim_set_hl(0, "PreProc", { fg = c.red, bold = true })
+	vim.api.nvim_set_hl(0, "PreProc", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "Include", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "Define", { fg = c.keyword, bold = true })
 	vim.api.nvim_set_hl(0, "Special", { fg = c.param, bold = true })
 	vim.api.nvim_set_hl(0, "Operator", { fg = c.keyword, bold = true })
 	vim.api.nvim_set_hl(0, "Number", { fg = c.constant, bold = true })
@@ -239,6 +268,15 @@ function M.apply_theme(theme_name)
 	vim.api.nvim_set_hl(0, "@method.php", { fg = c.func, bold = true })
 	vim.api.nvim_set_hl(0, "@parameter.php", { fg = c.param, italic = true })
 	vim.api.nvim_set_hl(0, "@variable.parameter.php", { fg = c.param, italic = true })
+	vim.api.nvim_set_hl(0, "@keyword.php", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "@keyword.function.php", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "@keyword.import.php", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "@keyword.modifier.php", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "phpKeyword", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "phpInclude", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "phpUseKeyword", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "phpClassKeyword", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "phpFunctionKeyword", { fg = c.keyword, bold = true })
 
 	-- TypeScript/JavaScript specific
 	vim.api.nvim_set_hl(0, "@lsp.type.class.typescript", { fg = c.class_name, bold = true })
@@ -254,6 +292,30 @@ function M.apply_theme(theme_name)
 	vim.api.nvim_set_hl(0, "@function.python", { fg = c.func, bold = true })
 	vim.api.nvim_set_hl(0, "@parameter.python", { fg = c.param, italic = true })
 
+	-- Blade/Laravel specific
+	vim.api.nvim_set_hl(0, "@keyword.blade", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "@function.blade", { fg = c.func, bold = true })
+	vim.api.nvim_set_hl(0, "@tag.blade", { fg = c.tag, bold = true })
+	vim.api.nvim_set_hl(0, "@punctuation.special.blade", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "BladeDirective", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "BladeEcho", { fg = c.func, bold = true })
+	vim.api.nvim_set_hl(0, "@text.blade", { fg = c.variable })
+	vim.api.nvim_set_hl(0, "@injection.blade", { fg = c.func })
+	-- Blade directives like @if, @foreach, @extends
+	vim.api.nvim_set_hl(0, "@keyword.directive.blade", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "@constant.blade", { fg = c.constant, bold = true })
+	-- HTML in Blade
+	vim.api.nvim_set_hl(0, "@tag.html", { fg = c.tag, bold = true })
+	vim.api.nvim_set_hl(0, "@tag.attribute.html", { fg = c.tag_attr, bold = true })
+	vim.api.nvim_set_hl(0, "@tag.delimiter.html", { fg = c.variable })
+	vim.api.nvim_set_hl(0, "@string.html", { fg = c.string, bold = true })
+	-- Embedded PHP in Blade
+	vim.api.nvim_set_hl(0, "@embedded", { fg = c.func })
+	vim.api.nvim_set_hl(0, "phpRegion", { fg = c.variable })
+	vim.api.nvim_set_hl(0, "bladePhpParenBlock", { fg = c.param })
+	vim.api.nvim_set_hl(0, "bladeDirective", { fg = c.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "bladeEchoDelimiter", { fg = c.func, bold = true })
+
 	vim.notify("Theme switched to: " .. theme.name, vim.log.levels.INFO)
 end
 
@@ -268,7 +330,7 @@ end
 
 -- Cycle to next theme
 function M.next_theme()
-	local theme_list = { "ultra_neon", "cyber_ocean", "synthwave", "matrix" }
+	local theme_list = { "ultra_neon", "cyber_ocean", "synthwave", "neon_blast", "matrix" }
 	local current_idx = 1
 	for i, name in ipairs(theme_list) do
 		if name == M.current_theme then

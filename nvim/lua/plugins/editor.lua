@@ -203,6 +203,23 @@ return {
 							end,
 							["<PageUp>"] = actions.preview_scrolling_up,
 							["<PageDown>"] = actions.preview_scrolling_down,
+							-- Copy file path to clipboard
+							["Y"] = function(prompt_bufnr)
+								local selection = require("telescope.actions.state").get_selected_entry()
+								if selection then
+									local path = selection.path or selection[1]
+									vim.fn.setreg("+", path)
+									vim.notify("Copied: " .. path, vim.log.levels.INFO)
+								end
+							end,
+							["gy"] = function(prompt_bufnr)
+								local selection = require("telescope.actions.state").get_selected_entry()
+								if selection then
+									local path = selection.path or selection[1]
+									vim.fn.setreg("+", path)
+									vim.notify("Copied: " .. path, vim.log.levels.INFO)
+								end
+							end,
 						},
 					},
 				},
